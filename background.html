@@ -1,0 +1,14 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="config.js"></script>
+<script src="deckchooser.js"></script>
+
+<script type="text/javascript">
+    chrome.contextMenus.create({
+        title: "Create Flashcards for '%s'",
+        contexts:['selection'],
+        onclick: function(info, tab) {
+            var url = getDeckChooserUrl({'expression': info.selectionText, '_popup': false});
+            window.open(url, null, 'width=640, height=580, modal=yes, location=no');
+        }});
+
+</script>
