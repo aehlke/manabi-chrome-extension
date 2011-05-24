@@ -4,7 +4,8 @@
         <style type="text/css">
             body {
                 overflow-x:hidden;
-                min-width:640px;
+                /*min-width:645px;*/
+                min-width:576px;
                 min-height:580px;
 
                 margin: 0;
@@ -14,7 +15,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
         <script src="config.js"></script>
-        <script src="deckchooser.js"></script>
+        <script src="utils.js"></script>
 
         <script>
             $(function(){
@@ -27,7 +28,7 @@
                 var openPopup = function(params) {
                     params = params || {};
                     params['_popup'] = true;
-                    iframe.setAttribute('src', getDeckChooserUrl(params));
+                    iframe.setAttribute('src', buildUrl(config.deckChooserUrl, params));
                 };
                 
                 var tabUrlPasses = function(url) {

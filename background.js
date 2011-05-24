@@ -1,22 +1,24 @@
 (function(){
-    var popupWin = null;
+    var existingPopup = null;
 
-    var createPopup = function(href, width, height) {
-        // Closes any existing popup window first.
-        if (popupWin) {
-            chrome.windows.remove(popupWin.id);
+    var _createPopup = function(href, reusableHref, width, height) {
+        // Reuses any existing open popup, to avoid asking the user to select a deck again.
+        // `reusableHref` is the href we'll use by default if we reuse a window.
+        if (existingPopup) {
+            chrome.windows.remove(existingPopup.winId);
         }
         chrome.windows.create({
             url: href, type: 'popup',
             width: width||576, height:height||680
         }, function(win){
-            popupWin = win;
+            existingPopup = {winId: win.id, reusableHref:reusableHref};
         });
     };
 
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         if (request.cmd == 'create-popup') {
-            createPopup(request.href, request.width, request.height);
+            _createPopup(request.href, request.reusableHref,
+                         request.width, request.height);
         }
     });
 
@@ -24,10 +26,15 @@
         title: "Create Flashcards for '%s'",
         contexts:['selection'],
         onclick: function(info, tab) {
-            var url = getDeckChooserUrl({'expression': info.selectionText,
+            var baseUrl = config.deckChooserUrl;
+            if (existingPopup && existingPopup.reusableHref) {
+                baseUrl = existingPopup.reusableHref;
+            }
+            var url = buildUrl(baseUrl, {'expression': info.selectionText,
                                          '_popup': false});
 
-            createPopup(url, 640, 580);
+            _createPopup(url, null, 576, 580);
         }
     });
 })();
+
