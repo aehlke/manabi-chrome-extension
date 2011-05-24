@@ -1,6 +1,6 @@
 {
     "name": "Manabi Flashcard Creator",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Easily create Japanese flashcards to be added to your Manabi account.",
     "icons": {
          "16": "icon16.png",
@@ -18,5 +18,10 @@
         "http://*/*",
         "https://*/*"
     ],
+    "content_scripts": [{
+        "matches": ["http://www.manabi.org/popups/fact-creator/decks/", "http://*/popups/fact-creator/decks/", "http://www.manabi.org/popups/fact-creator/decks/?*", "http://*/popups/fact-creator/decks/?*"],
+        "all_frames": true,
+        "js": ["jquery.min.js", "config.js", "deckchooser_content_script.js"]
+    }],
     "background_page": "background.html"
 }

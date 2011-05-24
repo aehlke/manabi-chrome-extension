@@ -32,6 +32,7 @@
                 
                 var tabUrlPasses = function(url) {
                     if (typeof(url) == 'undefined' || url == null) { return false; }
+                    if (url.indexOf('://chrome.google.com/webstore') !== -1) { return false; }
                     return (url.indexOf('http:') === 0 || url.indexOf('https:') === 0);
                 };
 
