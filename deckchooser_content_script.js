@@ -20,6 +20,8 @@ $(function(){
         if (doPopup && doPopup.toLowerCase() == 'true') {
             chrome.extension.sendRequest({cmd:'create-popup', href:href, reusableHref:originalHref});
         } else {
+            chrome.extension.sendRequest({cmd:'update-existing-popup-info',
+                                          href:href, reusableHref:originalHref});
             window.location = href;
         }
     });
