@@ -1,6 +1,6 @@
 {
-    "name": "Manabi Flashcard Creator",
-    "version": "0.2.4",
+    "name": "Manabi Japanese Flashcard Creator",
+    "version": "0.2.5",
     "description": "Easily create Japanese flashcards to be added to your Manabi account.",
     "icons": {
          "16": "icon16.png",
